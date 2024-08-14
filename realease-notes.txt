@@ -1,0 +1,18 @@
+
+buildNo: '3.0.2',buildTime: '15:30', buildDate: '25-MARCH-2022'
+============================================================================
+1) Solved Master Data.
+2)view is working in Master Tables.
+3)side menu scrolling is completed.
+
+buildNo: '3.0.1',buildTime: '14:15', buildDate: '23-MARCH-2022'
+============================================================================
+1) Solved some errors in companies.
+2) Added search for appointments completed.
+3) Added search functionality for feedback.
+
+buildNo: '3.0.0',buildTime: '10:40 AM', buildDate: '03-MARCH-2022'
+============================================================================
+1) New Build Updated.
+2) MCA questions completed.
+3) VDP sessions completed.
