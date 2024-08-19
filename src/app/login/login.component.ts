@@ -5,6 +5,7 @@ import { Login } from '../modals/login';
 import { ToastrService } from 'ngx-toastr';
 import { LoginService } from '../services/login.service';
 import { AuthHashingService } from '../services/auth-hashing.service';
+import * as CryptoJS from 'crypto-js';
 
 @Component({
   selector: 'app-login',
@@ -19,6 +20,7 @@ export class LoginComponent implements OnInit {
   loginObj: Login = new Login();
   loginid: string = '';
   password: string = '';
+  private secretKey: string = 'AK427';
 
   constructor(
     private router: Router,
@@ -31,8 +33,13 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.loginData = this.fb.group({
       loginid: ['', [Validators.required]],
-      password: ['', Validators.required]
+      password: ['', Validators.required],
+      key: this.secretKey
     });
+  }
+
+  encryptPassword(password: string): string {
+    return CryptoJS.AES.encrypt(password, this.secretKey).toString();
   }
 
   onLogin() {

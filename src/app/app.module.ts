@@ -13,6 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { RegistrationComponent } from './registration/registration.component';
 
+
 @NgModule({
   declarations: [ 
     AppComponent,

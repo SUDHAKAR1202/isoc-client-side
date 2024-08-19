@@ -3,13 +3,23 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, Observable, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
 
+
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
   private API_URL = environment.API_URL;
 
+  
+
+
+  
+
+  
+
   constructor(private http: HttpClient) { }
+
+
 
   // Login user
   loginUser(loginData: any): Observable<any> {

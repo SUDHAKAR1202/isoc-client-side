@@ -6,13 +6,17 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { BuglooRoutingModule } from './bugloo-routing.module';
+import { DashboardComponent } from '../dashboard/dashboard.component';
+import { SidemenuComponent } from '../sidemenu/sidemenu.component';
 
 
 
 
 @NgModule({
   declarations: [
-    BuglooComponent
+    BuglooComponent,
+    DashboardComponent,
+    SidemenuComponent
 
 
   

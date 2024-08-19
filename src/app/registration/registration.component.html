@@ -1,4 +1,15 @@
-<p>registration works!</p>
+
+<head>
+  <style>
+     body {
+        background-image: url("../../assets/images/background.jpg");
+        background-repeat: no-repeat;
+        background-size: 1500px 1000px;
+     }
+  </style>
+  <meta name="csrf-token" content="{{ csrf_token }}">
+  <!-- Other head elements -->
+</head>
 <body class="login-page" style="min-height: 496.391px;">
     <!-- <p class="login-box-msg"c style="font-weight: 34px;">Build No.: 3.0.4, 04-August-2022@10:00 </p> -->
     <div class="login-box">
@@ -16,11 +27,11 @@
         <div class="card-body login-card-body">
           <p class="login-box-msg">Sign Up to start your session</p>
   
-          <form action="../../index3.html" [formGroup]="loginData" method="post">
+          <form action="../../index3.html" [formGroup]="registrationData" method="post">
              <div class="form-group">
   
               <div class="input-group ">
-                <input type="text" formControlName="username" class="form-control" placeholder=" Enter the User Name">
+                <input type="text" formControlName="username" class="form-control" [(ngModel)]="username"  placeholder=" Enter the User Name">
                  <!-- <div class="input-group-append">
                         <div class="input-group-text">
                       
@@ -29,9 +40,9 @@
                      </div> -->
                  </div> 
                      <div
-                *ngIf="loginData.controls['username'].invalid && (loginData.controls['username'].dirty||loginData.controls['username'].touched)"
+                *ngIf="registrationData.controls['username'].invalid && (registrationData.controls['username'].dirty||registrationData.controls['username'].touched)"
                 class="text-small text-danger text-left">
-                <div *ngIf="loginData.controls['username'].errors && loginData.controls['username'].errors['username']">
+                <div *ngIf="registrationData.controls['username'].errors && registrationData.controls['username'].errors['username']">
                   User Name is required
                 </div>
                
@@ -42,7 +53,7 @@
             <div class="form-group">
   
                 <div class="input-group ">
-                  <input type="email" formControlName="emailid" class="form-control" placeholder=" Enter the Email Id">
+                  <input type="email" formControlName="emailid" class="form-control" [(ngModel)]="emailid" placeholder=" Enter the Email Id">
                     <div class="input-group-append">
                           <div class="input-group-text">
                         
@@ -51,12 +62,12 @@
                        </div> 
                    </div> 
                        <div
-                  *ngIf="loginData.controls['emailid'].invalid && (loginData.controls['emailid'].dirty||loginData.controls['emailid'].touched)"
+                  *ngIf="registrationData.controls['emailid'].invalid && (registrationData.controls['emailid'].dirty||registrationData.controls['emailid'].touched)"
                   class="text-small text-danger text-left">
-                  <div *ngIf="loginData.controls['emailid'].errors && loginData.controls['emailid'].errors['emailid']">
+                  <div *ngIf="registrationData.controls['emailid'].errors && registrationData.controls['emailid'].errors['emailid']">
                     Email Id is required
                   </div>
-                  <!-- <div *ngIf="loginData.controls['emailid'].errors && loginData.controls['emailid'].errors['emailid']">
+                  <!-- <div *ngIf="registrationData.controls['emailid'].errors && registrationData.controls['emailid'].errors['emailid']">
                     Email must be abc@xyz.pqr form
                   </div>  -->
                        </div>
@@ -64,7 +75,7 @@
               </div>
             <div class="form-group">
               <div class="input-group">
-                <input type="password" formControlName="password" class="form-control" placeholder="Password">
+                <input type="password" formControlName="password" class="form-control" [(ngModel)]="password" placeholder="Password">
                 <div class="input-group-append">
                   <div class="input-group-text">
                     <span class="fa fa-lock"></span>
@@ -72,16 +83,16 @@
                 </div>
               </div>
               <div
-                *ngIf="loginData.controls['password'].invalid && (loginData.controls['password'].dirty||loginData.controls['password'].touched)"
+                *ngIf="registrationData.controls['password'].invalid && (registrationData.controls['password'].dirty||registrationData.controls['password'].touched)"
                 class="text-danger text-left text-small">
-                <div *ngIf="loginData.controls['password'].errors && loginData.controls['password'].errors['required']">
+                <div *ngIf="registrationData.controls['password'].errors && registrationData.controls['password'].errors['required']">
                   Password is required
                 </div>
   
               </div>
            <br />
               <div class="input-group">
-                <input type="password" formControlName="confirmpassword" class="form-control" placeholder="Confirm Password">
+                <input type="password" formControlName="confirmpassword" class="form-control" [(ngModel)]="confirmpassword" placeholder="Confirm Password">
                 <div class="input-group-append">
                   <div class="input-group-text">
                     <span class="fa fa-lock"></span>
@@ -89,9 +100,9 @@
                 </div>
               </div>
               <div
-                *ngIf="loginData.controls['confirmpassword'].invalid && (loginData.controls['confirmpassword'].dirty||loginData.controls['confirmpassword'].touched)"
+                *ngIf="registrationData.controls['confirmpassword'].invalid && (registrationData.controls['confirmpassword'].dirty||registrationData.controls['confirmpassword'].touched)"
                 class="text-danger text-left text-small">
-                <div *ngIf="loginData.controls['confirmpassword'].errors && loginData.controls['confirmpassword'].errors['required']">
+                <div *ngIf="registrationData.controls['confirmpassword'].errors && registrationData.controls['confirmpassword'].errors['required']">
                  Confirm Password is required
                 </div>
   

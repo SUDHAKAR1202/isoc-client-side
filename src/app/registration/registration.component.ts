@@ -3,7 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Register } from '../modals/register';
 import { ToastrService } from 'ngx-toastr';
-import { LoginService } from '../services/login.service';
+import { RegisterService } from '../services/registration.service';
+
 
 
 
@@ -14,17 +15,24 @@ import { LoginService } from '../services/login.service';
   styleUrls: ['./registration.component.css']
 })
 export class RegistrationComponent implements OnInit {
-  loginData!: FormGroup
+  registrationData!: FormGroup
   isLoggedin = false
   submitClicked = false
   loginObj: Register= new Register();
-  constructor(private router: Router, private loginService: LoginService, private fb: FormBuilder, private toastr: ToastrService ) { }
+username: any;
+emailid: any;
+password: any;
+confirmpassword: any;
+csrf_token: any;
+
+
+  constructor(private router: Router, private registerService: RegisterService, private fb: FormBuilder, private toastr: ToastrService ) { }
  
 
   
 
   ngOnInit(): void {
-    this.loginData = this.fb.group({
+    this.registrationData = this.fb.group({
      
       username: ['', [Validators.required]],
 
@@ -34,26 +42,26 @@ export class RegistrationComponent implements OnInit {
     })
   }
   onRegister() {
-    this.submitClicked = true
-    this.loginData.markAllAsTouched();
-
-    this.loginObj.username = this.loginData.controls['username'].value;
-
-    this.loginObj.emailid = this.loginData.controls['emailid'].value;
-    this.loginObj.password = this.loginData.controls['password'].value;
-    this.loginObj.confirmpassword = this.loginData.controls['confirmpassword'].value;
-
-
- 
-    if (this.loginData.valid) {
+    
+if (this.registrationData.valid) {
      
       const registrationData = {
-        username: this.loginData.controls['username'].value,
+        username: this.registrationData.controls['username'].value,
   
-        emailid: this.loginData.controls['emailid'].value,
-        password: this.loginData.controls['password'].value,
-        confirmpassword: this.loginData.controls['confirmpassword'].value
+        emailid: this.registrationData.controls['emailid'].value,
+        password: this.registrationData.controls['password'].value,
+        confirmpassword: this.registrationData.controls['confirmpassword'].value
       };
+      this.registerService.registerUser(registrationData, Headers).subscribe({
+        next: (response) => {
+          console.log('Registration successful', response);
+          this.toastr.success('Registration successful');
+        },
+        error: (e) => {
+          console.error('Registration failed', e);
+          this.toastr.error('Registration failed');
+        }
+      })
 
       
 

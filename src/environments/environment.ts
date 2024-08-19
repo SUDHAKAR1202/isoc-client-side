@@ -6,7 +6,8 @@ export const environment = {
   production: false,
   //LOCAL URL
 
-  API_URL : 'http://192.168.0.135:8000'
+  // API_URL : 'http://192.168.0.135:8000'
+  API_URL: 'http://192.160.91.234:8000'
   
   //PROD URL 
   //API_URL:'http://13.233.199.79:8000', 
