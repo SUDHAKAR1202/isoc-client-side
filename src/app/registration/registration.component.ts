@@ -7,8 +7,6 @@ import { RegisterService } from '../services/registration.service';
 
 
 
-
-
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
@@ -37,22 +35,21 @@ csrf_token: any;
       username: ['', [Validators.required]],
 
       emailid: ['', [Validators.required]],
-      password: ['', Validators.required],
-      confirmpassword: ['', Validators.required]
+      password: ['', Validators.required]
     })
   }
   onRegister() {
     
 if (this.registrationData.valid) {
      
-      const registrationData = {
-        username: this.registrationData.controls['username'].value,
+      
+        this.username = this.registrationData.controls['username'].value,
   
-        emailid: this.registrationData.controls['emailid'].value,
-        password: this.registrationData.controls['password'].value,
-        confirmpassword: this.registrationData.controls['confirmpassword'].value
-      };
-      this.registerService.registerUser(registrationData, Headers).subscribe({
+        this.emailid =  this.registrationData.controls['emailid'].value,
+        this.password =  this.registrationData.controls['password'].value
+    
+
+        this.registerService.registerUser(this.username,this.emailid, this.password).subscribe({
         next: (response) => {
           console.log('Registration successful', response);
           this.toastr.success('Registration successful');

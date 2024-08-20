@@ -91,22 +91,8 @@
   
               </div>
            <br />
-              <div class="input-group">
-                <input type="password" formControlName="confirmpassword" class="form-control" [(ngModel)]="confirmpassword" placeholder="Confirm Password">
-                <div class="input-group-append">
-                  <div class="input-group-text">
-                    <span class="fa fa-lock"></span>
-                  </div>
-                </div>
-              </div>
-              <div
-                *ngIf="registrationData.controls['confirmpassword'].invalid && (registrationData.controls['confirmpassword'].dirty||registrationData.controls['confirmpassword'].touched)"
-                class="text-danger text-left text-small">
-                <div *ngIf="registrationData.controls['confirmpassword'].errors && registrationData.controls['confirmpassword'].errors['required']">
-                 Confirm Password is required
-                </div>
-  
-              </div>
+           
+              
             </div>
             <div class="row">
               <div class="col-8">
