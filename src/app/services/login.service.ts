@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { catchError, Observable, throwError } from 'rxjs';
+import { catchError, Observable, tap, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { Login } from '../modals/login';
 
 
 @Injectable({
@@ -10,23 +11,30 @@ import { environment } from '../../environments/environment';
 export class LoginService {
   private API_URL = environment.API_URL;
 
-  
-
-
-  
-
-  
-
   constructor(private http: HttpClient) { }
 
 
 
   // Login user
   loginUser(loginData: any): Observable<any> {
-    return this.http.post(`${this.API_URL}/login/`, loginData)
+    return this.http.post(`${this.API_URL}/api/user/login/`, loginData)
       .pipe(
         catchError(this.handleError)
       );
+  }
+
+  verifyLogin(login: Login) {
+    
+    return this.http.post(`${environment.API_URL}/api/user/login/`, login).pipe(
+      tap((data: any) => { 
+        sessionStorage.setItem('loginId',data.response[0].loginid)
+        sessionStorage.setItem('password', data.response[0].password)
+        if (data.authenticated) {
+          sessionStorage.setItem('userObj', JSON.stringify(data.user))
+        }
+      }),
+      catchError(this.handleError)
+    )
   }
 
   // Handle errors

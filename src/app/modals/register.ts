@@ -1,7 +1,6 @@
 export class Register {
     username?:string
-    emailid?: string
+    email?: string
     password?: string
-    confirmpassword?: string
   
 }

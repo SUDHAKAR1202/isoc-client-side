@@ -18,10 +18,9 @@ export class RegistrationComponent implements OnInit {
   submitClicked = false
   loginObj: Register= new Register();
 username: any;
-emailid: any;
+email: any;
 password: any;
-confirmpassword: any;
-csrf_token: any;
+
 
 
   constructor(private router: Router, private registerService: RegisterService, private fb: FormBuilder, private toastr: ToastrService ) { }
@@ -31,39 +30,53 @@ csrf_token: any;
 
   ngOnInit(): void {
     this.registrationData = this.fb.group({
-     
+      
       username: ['', [Validators.required]],
 
-      emailid: ['', [Validators.required]],
+      email: ['', [Validators.required]],
       password: ['', Validators.required]
     })
   }
-  onRegister() {
-    
-if (this.registrationData.valid) {
-     
-      
-        this.username = this.registrationData.controls['username'].value,
-  
-        this.emailid =  this.registrationData.controls['emailid'].value,
-        this.password =  this.registrationData.controls['password'].value
-    
 
-        this.registerService.registerUser(this.username,this.emailid, this.password).subscribe({
-        next: (response) => {
-          console.log('Registration successful', response);
-          this.toastr.success('Registration successful');
-        },
-        error: (e) => {
-          console.error('Registration failed', e);
-          this.toastr.error('Registration failed');
+     onRegister() {
+        this.submitClicked = true
+        this.registrationData.markAllAsTouched();
+    
+        this.loginObj.username = this.registrationData.controls['username'].value;
+    
+        this.loginObj.email = this.registrationData.controls['email'].value;
+        this.loginObj.password = this.registrationData.controls['password'].value;
+    
+    
+        let login = {
+          username: this.registrationData.controls['username'].value,
+    
+          email: this.registrationData.controls['email'].value,
+          password: this.registrationData.controls['password'].value
         }
-      })
+        if (this.registrationData.valid) {
+          this.registerService.verifyRegister(login).subscribe(data => {
+            switch (data.status) {
+              case 200:
+                sessionStorage.setItem('token', data.token);
+                this.toastr.success("Registration Successfully ");
+                this.router.navigate(['/login'])
+                break;
+              case 404:
+                this.toastr.error("EmailId/ password does not exist")
+                break;
+              default:
+                this.toastr.error("EmailId/ password does not match")
+                break;
+            }
+          })
+        }
+      }
 
       
 
       
      
-    }
+    
   }
-}
+

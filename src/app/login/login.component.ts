@@ -5,6 +5,7 @@ import { Login } from '../modals/login';
 import { ToastrService } from 'ngx-toastr';
 import { LoginService } from '../services/login.service';
 import { AuthHashingService } from '../services/auth-hashing.service';
+import { SharedDataService } from '../shared-data/sharedservice/shared-data.service';
 
 
 @Component({
@@ -20,13 +21,15 @@ export class LoginComponent implements OnInit {
   loginObj: Login = new Login();
   loginid: string = '';
   password: string = '';
+  
 
   constructor(
     private router: Router,
     private loginService: LoginService,
     private fb: FormBuilder,
     private toastr: ToastrService,
-    private authHashingService: AuthHashingService
+    private authHashingService: AuthHashingService,
+    private raised: SharedDataService
   ) { }
 
   ngOnInit() {
@@ -37,24 +40,45 @@ export class LoginComponent implements OnInit {
     });
   }
 
- 
-
   onLogin() {
+    this.submitClicked = true
+    this.loginData.markAllAsTouched();
+
+    this.loginObj.username = this.loginData.controls['loginid'].value;
+    this.loginObj.password = this.loginData.controls['password'].value;
+  
+    let login = {
+      username: this.loginData.controls['loginid'].value,
+      password: this.loginData.controls['password'].value
+    }
+    
+    sessionStorage.setItem('loginid',this.loginData.controls['loginid'].value)
+    console.log('loginid');
+    console.log(sessionStorage.getItem('loginid'));
+
+     this.login1=this.loginData.value;
+     console.log(this.login1);
+    
     if (this.loginData.valid) {
-      const loginData = {
-        loginid: this.loginData.value.loginid,
-        password: this.authHashingService.hashPassword(this.loginData.value.password),
-      };
-      this.loginService.loginUser(loginData).subscribe({
-        next: (response) => {
-          console.log('Login successful', response);
-          this.toastr.success('Login successful');
-        },
-        error: (e) => {
-          console.error('Login failed', e);
-          this.toastr.error('Login failed');
+this.raised.setraisedService(this.login1);     
+
+      this.loginService.verifyLogin(login).subscribe(data => {
+        switch (data.status) {
+          case 200:
+            sessionStorage.setItem('token', data.token);
+            this.toastr.success("Login Success");
+            this.router.navigate(['bugloo/dashboard'])
+            break;
+          case 404:
+            this.toastr.error("User id / password does not exist")
+            break;
+          default:
+            this.toastr.error("User id / password does not match")
+            break;
         }
-      });
+      })
     }
   }
+
+ 
 }

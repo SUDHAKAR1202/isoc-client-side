@@ -1,4 +1,4 @@
 export class Login {
-    loginid?: string
+    username?: string
     password?: string
 }
