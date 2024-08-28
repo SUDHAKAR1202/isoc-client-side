@@ -1,9 +1,9 @@
 import { Component, NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LoginComponent } from '../login/login.component';
 import { BuglooComponent } from './bugloo.component';
-import { RegistrationComponent } from '../registration/registration.component';
 import { DashboardComponent } from '../dashboard/dashboard.component';
+import { UsersComponent } from '../users/users.component';
+import { AuthGuard } from '../auth.guard';
 
 
 
@@ -12,10 +12,11 @@ const routes: Routes = [
         path: '', component: BuglooComponent,
         children: [
 
-            {path: 'login', component: LoginComponent},
-            {path: 'register', component: RegistrationComponent},
+        
             
-           {path: 'dashboard', component: DashboardComponent},
+           {path: 'dashboard', component: DashboardComponent , canActivate: [AuthGuard] },
+
+           {path: 'list-users', component: UsersComponent , canActivate: [AuthGuard] }
            
          
            

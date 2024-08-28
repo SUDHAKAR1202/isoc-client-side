@@ -8,6 +8,7 @@ import { RouterModule } from '@angular/router';
 import { BuglooRoutingModule } from './bugloo-routing.module';
 import { DashboardComponent } from '../dashboard/dashboard.component';
 import { SidemenuComponent } from '../sidemenu/sidemenu.component';
+import { UsersComponent } from '../users/users.component';
 
 
 
@@ -16,8 +17,8 @@ import { SidemenuComponent } from '../sidemenu/sidemenu.component';
   declarations: [
     BuglooComponent,
     DashboardComponent,
-    SidemenuComponent
-
+    SidemenuComponent,
+    UsersComponent
 
   
   ],

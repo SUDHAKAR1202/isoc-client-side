@@ -1,0 +1,94 @@
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>List of Clients</h1>
+                </div>
+                <div class="col-sm-12">
+                    <button class="btn btn-warning float-sm-right mr-2 d-inline-block" type="button">&nbsp;
+                        Reset</button>&nbsp;&nbsp;
+                        <!-- <div class="container float-sm-right mr-2 d-inline-block">
+                            <div class="row ">
+                                <div class="search-user "><i class="fas fa-search"></i>&nbsp;
+                                    <input type="text" name="search" [(ngModel)]="searchText"
+                                        placeholder="Search by name or email">
+                                </div>
+                                
+                            </div>
+                        </div> -->
+
+                
+
+                    <button class="btn btn-success float-sm-right mr-2 d-inline-block" type="button"
+                        (click)="exportExcel()">
+                        <i class="fas fa-file-excel"></i> Export to Excel
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+
+                    <div class="card">
+
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table id="example2" class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center"> Client Id</th>
+                                            <th class="text-center"> Name</th>
+                                            <th class="text-center"> Unit</th>
+                                            <th class="text-center"> MacId</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody *ngIf="listofUsers.length !== 0">
+                                        <tr
+                                            *ngFor="let User  of listofUsers | paginate: {itemsPerPage: 15, currentPage: currentPg}">
+                                            <td class="text-center">
+                                               {{User.client_id}}
+                                                
+                                            </td>
+
+                                            <td class="text-center">{{User.client_name}}</td>
+                                            <td class="text-center">{{User.client_unit}}</td>
+                                            <td class="text-center">{{User.client_macid}}</td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="my-2" *ngIf="listofUsers.length == 0">
+                                    <div class="noRecord">No Records Found</div>
+                                </div>
+                                <div style=" margin-left: 70%;">
+                                    <pagination-controls (pageChange)="currentPg = $event"></pagination-controls>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <!-- /.card-body --> 
+                    </div>
+                    <!-- /.card -->
+
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
